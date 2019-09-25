@@ -1,4 +1,5 @@
 import React,{Component} from 'react'
+import './MemeGenerator.css'
 
 class MemeGenerator extends Component{
 	constructor(props){
@@ -29,6 +30,7 @@ class MemeGenerator extends Component{
 			.then((data)=>{ 
 				const memes = data.data.memes;
 				this.setState({ imgArr:memes});
+				this.setState({randImg:memes[0].url})
 			});
 
 	}
@@ -37,28 +39,30 @@ class MemeGenerator extends Component{
 	render(){
 		return(
 			<div>
-				<input 
-					type='text' 
-					name='topText'
-					placeholder='top text' 
-					value={this.state.top} 
-					onChange={this.handleChange}
-					/>
-
-				<input 
-					type ='text' 
-					name='bottomText'
-					placeholder='Bottom text' 
-					value={this.state.bottom}
-					onChange={this.handleChange}
-					/>
-
-				<button onClick={this.generateHandler}>Gen</button>
-				<br/>
 				<div>
-					<img src={this.state.randImg} alt='random meme' style={{height:250, width:'auto'}}/>
-					<p>{this.state.topText}</p>
-					<p>{this.state.bottomText}</p>
+					<input 
+						type='text' 
+						name='topText'
+						placeholder='top text' 
+						value={this.state.top} 
+						onChange={this.handleChange}
+						/>
+
+					<input 
+						type ='text' 
+						name='bottomText'
+						placeholder='Bottom text' 
+						value={this.state.bottom}
+						onChange={this.handleChange}
+						/>
+					<br/>
+					<button onClick={this.generateHandler}>Gen</button>
+				</div>
+				<br/>
+				<div className='meme-container'>
+					<img src={this.state.randImg} alt='random meme'/>
+					<div className='meme-text top-text'>{this.state.topText}</div>
+					<div className='meme-text bottom-text'>{this.state.bottomText}</div>
 				</div>
 			</div>
 			)
